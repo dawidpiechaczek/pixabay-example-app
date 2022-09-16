@@ -1,0 +1,8 @@
+apply plugin: 'kotlin'
+apply from: "$rootDir/common.gradle"
+
+dependencies {
+    api deps.test.arch
+    api deps.test.junit
+    api deps.test.mockk
+}

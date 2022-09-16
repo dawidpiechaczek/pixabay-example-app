@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Widget.App.Button.Primary">
+        <item name="backgroundTint">@color/primary_even_darker</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.App.Button.Secondary">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+    <style name="Widget.App.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Widget.App.Button.TextButton.Primary">
+        <item name="android:textColor">@color/primary_darker</item>
+    </style>
+
+    <style name="Widget.App.Button.TextButton.Secondary">
+        <item name="android:textColor">@color/primary_even_darker</item>
+    </style>
+
+
+    <style name="Widget.App.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton"></style>
+
+    <style name="Widget.App.Button.OutlinedButton.Primary"></style>
+
+    <style name="Widget.App.Button.OutlinedButton.Secondary"></style>
+
+
+    <style name="Widget.App.Button.ImageButton" parent="Widget.AppCompat.ImageButton"></style>
+
+    <style name="Widget.App.Button.ImageButton.Primary"></style>
+
+    <style name="Widget.App.Button.ImageButton.Secondary"></style>
+</resources>

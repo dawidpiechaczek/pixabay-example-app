@@ -1,0 +1,22 @@
+buildscript {
+    apply from: "versions.gradle"
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath deps.android_plugin
+        classpath deps.kotlin_gradle_plugin
+        classpath deps.hilt.plugin
+        classpath deps.navigation.safe_args_plugin
+    }
+}
+
+
+allprojects {
+    apply from: rootProject.file("ktlint.gradle")
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

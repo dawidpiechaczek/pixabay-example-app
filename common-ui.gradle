@@ -1,0 +1,65 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply from: "$rootDir/common.gradle"
+
+android {
+    compileSdk 32
+    defaultConfig {
+        minSdk 26
+        targetSdk 32
+        versionCode 100
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+        freeCompilerArgs += [
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=kotlin.ExperimentalStdlibApi"
+        ]
+    }
+
+    packagingOptions {
+        pickFirst '**'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation deps.android_ui.appcompat
+    implementation deps.android_ui.constraint_layout
+    implementation deps.android_ui.coordinator_layout
+    implementation deps.android_ui.material
+    implementation deps.android_ui.recycler_view
+    implementation deps.android_ui.splash_screen
+    implementation deps.android_ui.view_model
+
+    implementation deps.play_auth
+
+    implementation deps.fragment.fragment
+    implementation deps.fragment.ktx
+    testImplementation deps.fragment.test
+
+    implementation deps.hilt.navigation
+    implementation deps.hilt.android
+    kapt deps.hilt.compiler
+
+    implementation deps.ktlint
+
+    implementation deps.navigation.frgament
+    implementation deps.navigation.ui
+
+    androidTestImplementation deps.test.junit_ext
+    androidTestImplementation deps.test.espresso
+
+    debugImplementation deps.leak_canary
+}

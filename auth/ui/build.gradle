@@ -1,0 +1,9 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/common-ui.gradle"
+
+dependencies {
+    implementation project(':core:ui')
+    api project(':auth:data')
+
+    testImplementation(project(':shared-test'))
+}

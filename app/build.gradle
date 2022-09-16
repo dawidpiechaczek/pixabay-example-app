@@ -1,0 +1,19 @@
+apply plugin: 'com.android.application'
+apply from: "$rootDir/common-ui.gradle"
+
+android {
+    defaultConfig {
+        applicationId "com.appsirise.pixabayexampleapp"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':core:ui')
+    implementation project(':auth:ui')
+}

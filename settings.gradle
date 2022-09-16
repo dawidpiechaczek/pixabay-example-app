@@ -1,0 +1,15 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+    }
+}
+rootProject.name = "Pixabay Example App"
+include ':app'
+include ':auth:data'
+include ':auth:ui'
+include ':core:ui'
+include ':core:data'
+include ':shared-test'
