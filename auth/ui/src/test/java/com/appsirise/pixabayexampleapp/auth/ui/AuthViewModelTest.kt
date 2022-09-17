@@ -3,9 +3,9 @@ package com.appsirise.pixabayexampleapp.auth.ui
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.appsirise.core.ui.utils.ViewState
+import com.appsirise.pixabayexampleapp.auth.data.model.SearchedPhotosResponse
+import com.appsirise.pixabayexampleapp.auth.ui.usecase.SearchPhotosUseCase
 import com.appsirise.sharedtest.TestCoroutineRule
-import com.appsirise.pixabayexampleapp.auth.data.model.DogBreed
-import com.appsirise.pixabayexampleapp.auth.ui.usecase.GetDogBreedsUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.confirmVerified
@@ -25,17 +25,17 @@ internal class AuthViewModelTest {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @MockK
-    lateinit var getDogBreedsUseCase: GetDogBreedsUseCase
+    lateinit var getDogBreedsUseCase: SearchPhotosUseCase
 
     @RelaxedMockK
-    lateinit var dogBreedsObserver: Observer<ViewState<List<DogBreed>>>
+    lateinit var dogBreedsObserver: Observer<ViewState<List<SearchedPhotosResponse>>>
 
-    private lateinit var authViewModel: AuthViewModel
+    private lateinit var authViewModel: PhotosListViewModel
 
     @Before
     fun before() {
         MockKAnnotations.init(this)
-        authViewModel = AuthViewModel(getDogBreedsUseCase)
+        authViewModel = PhotosListViewModel(getDogBreedsUseCase)
     }
 
     @Test

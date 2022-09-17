@@ -6,8 +6,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.appsirise.core.ui.base.BaseView
-import com.appsirise.pixabayexampleapp.auth.data.model.DogBreed
 import com.appsirise.pixabayexampleapp.auth.ui.R
+import com.appsirise.pixabayexampleapp.auth.ui.SearchedPhoto
 
 class SignUpView(layoutInflater: LayoutInflater, parent: ViewGroup?) :
     BaseView<SignUpView.Listener>(layoutInflater, parent, R.layout.fragment_signup) {
@@ -23,7 +23,7 @@ class SignUpView(layoutInflater: LayoutInflater, parent: ViewGroup?) :
         navigateToDashboard.setOnClickListener { listeners.forEach { listener -> listener.onClickNavigateToDashboard() } }
     }
 
-    fun bindDogBreeds(breeds: List<DogBreed>) {
+    fun bindPhotos(breeds: List<SearchedPhoto>) {
         breedsAdapter.text = breeds.toString()
     }
 

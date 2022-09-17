@@ -6,29 +6,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.appsirise.core.ui.utils.ErrorMessageHelper
 import com.appsirise.core.ui.utils.ViewState
-import com.appsirise.pixabayexampleapp.auth.data.model.DogBreed
-import com.appsirise.pixabayexampleapp.auth.ui.usecase.GetDogBreedsUseCase
+import com.appsirise.pixabayexampleapp.auth.ui.usecase.SearchPhotosUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-internal class AuthViewModel @Inject constructor(
-    private val getDogBreedsUseCase: GetDogBreedsUseCase,
+internal class PhotosListViewModel @Inject constructor(
+    private val searchPhotosUseCase: SearchPhotosUseCase,
 ) : ViewModel() {
 
-    private val _getBreedsLiveData = MutableLiveData<ViewState<List<DogBreed>>>()
-    val getBreedsLiveData: LiveData<ViewState<List<DogBreed>>> = _getBreedsLiveData
+    private val _searchPhotosLiveData = MutableLiveData<ViewState<List<SearchedPhoto>>>()
+    val searchPhotosLiveData: LiveData<ViewState<List<SearchedPhoto>>> = _searchPhotosLiveData
 
-    fun getBreeds() {
+    fun searchPhotos() {
         viewModelScope.launch {
             try {
-                _getBreedsLiveData.value =
-                    ViewState.Success(getDogBreedsUseCase.getBreeds())
+                _searchPhotosLiveData.value =
+                    ViewState.Success(searchPhotosUseCase.searchPhotos())
             } catch (error: Exception) {
                 Timber.e(error)
-                _getBreedsLiveData.value =
+                _searchPhotosLiveData.value =
                     ViewState.Error(ErrorMessageHelper(error).getMessageStringId())
             }
         }

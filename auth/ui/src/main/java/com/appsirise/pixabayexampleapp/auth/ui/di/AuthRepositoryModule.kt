@@ -1,7 +1,7 @@
 package com.appsirise.pixabayexampleapp.auth.ui.di
 
-import com.appsirise.pixabayexampleapp.auth.ui.repository.ExampleRepository
-import com.appsirise.pixabayexampleapp.auth.ui.repository.ExampleSource
+import com.appsirise.pixabayexampleapp.auth.ui.repository.SearchPhotosRepository
+import com.appsirise.pixabayexampleapp.auth.ui.repository.SearchPhotosSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 internal abstract class AuthRepositoryModule {
 
     @Binds
-    abstract fun bindExampleRepository(exampleRepository: ExampleRepository): ExampleSource
+    abstract fun bindExampleRepository(exampleRepository: SearchPhotosRepository): SearchPhotosSource
 }

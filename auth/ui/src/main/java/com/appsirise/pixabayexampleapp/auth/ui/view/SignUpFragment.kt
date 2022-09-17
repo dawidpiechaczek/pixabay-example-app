@@ -11,7 +11,7 @@ import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import com.appsirise.core.ui.utils.ViewState
 import com.appsirise.pixabayexampleapp.auth.ui.AuthViewFactory
-import com.appsirise.pixabayexampleapp.auth.ui.AuthViewModel
+import com.appsirise.pixabayexampleapp.auth.ui.PhotosListViewModel
 import com.appsirise.pixabayexampleapp.auth.ui.R
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class SignUpFragment : Fragment(), SignUpView.Listener {
     lateinit var viewFactory: AuthViewFactory
     private var signUpView: SignUpView? = null
 
-    private val authViewModel: AuthViewModel by viewModels()
+    private val authViewModel: PhotosListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +40,7 @@ class SignUpFragment : Fragment(), SignUpView.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        authViewModel.getBreeds()
+        authViewModel.searchPhotos()
     }
 
     override fun onStart() {
@@ -59,10 +59,10 @@ class SignUpFragment : Fragment(), SignUpView.Listener {
     }
 
     private fun initObservers() {
-        authViewModel.getBreedsLiveData.observe(viewLifecycleOwner) { dogBreedsState ->
+        authViewModel.searchPhotosLiveData.observe(viewLifecycleOwner) { dogBreedsState ->
             when (dogBreedsState) {
                 is ViewState.Error -> signUpView?.showError(dogBreedsState.errorMessage)
-                is ViewState.Success -> signUpView?.bindDogBreeds(dogBreedsState.data)
+                is ViewState.Success -> signUpView?.bindPhotos(dogBreedsState.data)
             }
         }
     }

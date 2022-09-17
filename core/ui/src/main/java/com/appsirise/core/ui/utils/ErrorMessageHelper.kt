@@ -2,14 +2,13 @@ package com.appsirise.core.ui.utils
 
 import androidx.annotation.StringRes
 import com.appsirise.core.ui.R
-import com.squareup.moshi.JsonDataException
+import com.google.gson.JsonParseException
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLPeerUnverifiedException
 import kotlin.reflect.KClass
-import kotlin.reflect.jvm.jvmName
 
 /**
  * Util class to provide proper error string id message that depends on passed [throwable]
@@ -66,12 +65,12 @@ class ErrorMessageHelper(private val throwable: Throwable) {
 
     private fun getExceptionErrorMessageStringId(): Int {
         val exceptionIndex =
-            otherExceptions.indexOfFirst { it.exception.jvmName == throwable.javaClass.name }
+            otherExceptions.indexOfFirst { it.exception.java.name == throwable.javaClass.name }
         if (exceptionIndex != -1) return otherExceptions[exceptionIndex].errorMessageStringRes
         return when (throwable) {
             is ConnectException, is UnknownHostException -> R.string.error_no_internet_connection
             is SocketTimeoutException -> R.string.error_timeout
-            is KotlinNullPointerException, is JsonDataException -> R.string.error_missing_data
+            is KotlinNullPointerException, is JsonParseException -> R.string.error_missing_data
             is SSLPeerUnverifiedException -> R.string.error_security
             else -> R.string.error_unknown
         }
