@@ -30,6 +30,8 @@ versions.recycler_view = '1.2.1'
 versions.retrofit = '2.9.0'
 versions.retrofit_gson = '2.5.0'
 versions.recycler_view = '1.2.1'
+versions.rx_android = '2.0.0'
+versions.rx_kotlin = '2.0.0'
 versions.splash_screen = '1.0.0-beta01'
 versions.stetho = '1.5.1'
 versions.timber = '4.7.1'
@@ -100,6 +102,11 @@ test.junit_ext = "androidx.test.ext:junit:$versions.junit_ext"
 test.espresso = "androidx.test.espresso:espresso-core:$versions.espresso"
 test.mockk = "io.mockk:mockk:$versions.mockk"
 deps.test = test
+
+def rx = [:]
+rx.kotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rx_kotlin"
+rx.android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+deps.rx = rx
 
 deps.play_auth = "com.google.android.gms:play-services-auth:$versions.play_auth"
 deps.google_services = "com.google.gms:google-services:$versions.google_services"

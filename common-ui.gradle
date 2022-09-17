@@ -58,6 +58,9 @@ dependencies {
     implementation deps.navigation.frgament
     implementation deps.navigation.ui
 
+    implementation deps.rx.android
+    implementation deps.rx.kotlin
+
     androidTestImplementation deps.test.junit_ext
     androidTestImplementation deps.test.espresso
 
