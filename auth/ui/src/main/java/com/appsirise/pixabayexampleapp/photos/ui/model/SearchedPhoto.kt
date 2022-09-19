@@ -11,7 +11,7 @@ data class SearchedPhoto(
     val likes: Long?,
     val comments: Long?,
     val downloads: Long?
-): UniqueId {
+) : UniqueId {
 
     override fun getUniqueId(): Long = id
 }

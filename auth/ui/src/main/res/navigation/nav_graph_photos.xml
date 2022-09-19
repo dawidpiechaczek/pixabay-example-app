@@ -7,8 +7,22 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.appsirise.pixabayexampleapp.photos.ui.view.PhotosListFragment"
+        android:name="com.appsirise.pixabayexampleapp.photos.ui.view.list.PhotosListFragment"
         android:label="SignUpFragment"
-        tools:layout="@layout/fragment_photos_list"/>
+        tools:layout="@layout/fragment_photos_list">
+        <action
+            android:id="@+id/action_signUpFragment_to_photosDetailsFragment"
+            app:destination="@id/photosDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/photosDetailsFragment"
+        android:name="com.appsirise.pixabayexampleapp.photos.ui.view.details.PhotosDetailsFragment"
+        android:label="PhotosDetailsFragment"
+        tools:layout="@layout/fragment_photos_details">
+        <argument
+            android:name="photoId"
+            app:argType="long" />
+    </fragment>
 
 </navigation>

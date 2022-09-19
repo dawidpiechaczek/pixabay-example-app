@@ -25,5 +25,6 @@ internal class AuthModule {
     fun provideSearchPhotosEffect(): PublishSubject<PhotoListEffect> = PublishSubject.create()
 
     @Provides
-    fun provideSearchPhotosState(): BehaviorSubject<PhotoListState> = BehaviorSubject.create()
+    fun provideSearchPhotosState(): BehaviorSubject<PhotoListState> =
+        BehaviorSubject.createDefault(PhotoListState(searchedPhotos = listOf()))
 }

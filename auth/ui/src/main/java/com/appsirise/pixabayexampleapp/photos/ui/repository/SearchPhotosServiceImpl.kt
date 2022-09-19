@@ -6,14 +6,14 @@ import com.appsirise.pixabayexampleapp.photos.data.network.SearchPhotosApi
 import io.reactivex.Single
 import javax.inject.Inject
 
-const val RANDOM_STRING = ""
+const val API_KEY = "29991143-f0047d740f3fb47d1ec4120b7"
 
-internal class SearchPhotosRepository @Inject constructor(
+internal class SearchPhotosServiceImpl @Inject constructor(
     private val searchPhotosApi: SearchPhotosApi
-) : SearchPhotosSource {
+) : SearchPhotosService {
 
     override fun searchPhotos(): Single<SearchedPhotosResponse> =
-        searchPhotosApi.searchPhotos(RANDOM_STRING, "fruits")
+        searchPhotosApi.searchPhotos(API_KEY, "fruits")
             .retry(1)
             .map { it.getBodyOrThrowException() }
 }

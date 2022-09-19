@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.appsirise.core.ui.utils.ViewState
 import com.appsirise.pixabayexampleapp.photos.data.model.SearchedPhotosResponse
 import com.appsirise.pixabayexampleapp.photos.ui.usecase.SearchPhotosUseCase
+import com.appsirise.pixabayexampleapp.photos.ui.view.list.PhotosListViewModel
 import com.appsirise.sharedtest.TestCoroutineRule
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

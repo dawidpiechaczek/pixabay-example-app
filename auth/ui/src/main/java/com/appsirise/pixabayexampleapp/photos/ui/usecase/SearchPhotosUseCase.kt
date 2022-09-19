@@ -1,18 +1,18 @@
 package com.appsirise.pixabayexampleapp.photos.ui.usecase
 
-import com.appsirise.pixabayexampleapp.photos.ui.model.SearchedPhoto
-import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchPhotosSource
 import com.appsirise.pixabayexampleapp.photos.ui.model.toSearchedPhoto
-import io.reactivex.Single
+import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchPhotosService
+import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchedPhotosSource
+import io.reactivex.Completable
 import javax.inject.Inject
 
 internal class SearchPhotosUseCase @Inject constructor(
-    private val searchPhotosSource: SearchPhotosSource
+    private val searchPhotosService: SearchPhotosService,
+    private val searchPhotosSource: SearchedPhotosSource
 ) {
 
-    fun searchPhotos(): Single<List<SearchedPhoto>> =
-        searchPhotosSource.searchPhotos()
-            .map { response ->
-                response.searchedPhotos.map { it.toSearchedPhoto() }
-            }
+    fun searchPhotos(): Completable =
+        searchPhotosService.searchPhotos()
+            .map { response -> response.searchedPhotos.map { it.toSearchedPhoto() } }
+            .flatMapCompletable { searchPhotosSource.insert(it) }
 }

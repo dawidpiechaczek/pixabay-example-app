@@ -13,6 +13,9 @@ class SearchedPhotoViewHolder(
 ) : BaseViewHolder<ItemSearchedPhotoBinding, SearchedPhoto>(parent, creator) {
 
     override fun bind(item: SearchedPhoto) {
-        binding.searchedPhoto = item
+        with(binding) {
+            searchedPhoto = item
+            root.setOnClickListener { listener.invoke(item) }
+        }
     }
 }
