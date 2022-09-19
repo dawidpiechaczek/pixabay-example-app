@@ -7,20 +7,22 @@ import androidx.fragment.app.FragmentManager
 import com.appsirise.core.ui.base.BaseView
 import com.appsirise.core.ui.extensions.findNavControllerCompat
 import com.appsirise.pixabayexampleapp.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.appsirise.pixabayexampleapp.databinding.ActivityMainBinding
 
 class MainView(
     private val fragmentManager: FragmentManager,
     layoutInflater: LayoutInflater,
     parent: ViewGroup?
-) : BaseView<MainView.Listener>(layoutInflater, parent, R.layout.activity_main) {
+) : BaseView<MainView.Listener, ActivityMainBinding>(
+    layoutInflater,
+    parent,
+    R.layout.activity_main
+) {
 
     interface Listener {
         fun onClickSearch()
         fun onClickDashboard()
     }
-
-    private val bottomNavigationBar: BottomNavigationView = findViewById(R.id.bottom_navigation_bar)
 
     init {
         setNavigationListener()
@@ -40,11 +42,11 @@ class MainView(
     }
 
     private fun changeBottomNavigationBarVisibility(isNavigationBarVisible: Boolean) {
-        bottomNavigationBar.isVisible = isNavigationBarVisible
+        binding.bottomNavigationBar.isVisible = isNavigationBarVisible
     }
 
     private fun setOnNavigationBottomBarItemSelected() {
-        bottomNavigationBar.setOnItemSelectedListener { item ->
+        binding.bottomNavigationBar.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_dashboard -> {
                     listeners.forEach { listener -> listener.onClickDashboard() }

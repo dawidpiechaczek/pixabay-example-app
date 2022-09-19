@@ -8,6 +8,6 @@ import javax.inject.Provider
 
 class PhotosViewFactory @Inject constructor(private val layoutInflaterProvider: Provider<LayoutInflater>) {
 
-    fun photosListView(parent: ViewGroup?): PhotosListView =
+    fun newSignUpView(parent: ViewGroup?): PhotosListView =
         PhotosListView(layoutInflaterProvider.get(), parent)
 }

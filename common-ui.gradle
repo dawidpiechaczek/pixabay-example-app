@@ -30,7 +30,7 @@ android {
         pickFirst '**'
     }
     buildFeatures {
-        viewBinding true
+        dataBinding true
     }
 }
 
@@ -52,6 +52,9 @@ dependencies {
     implementation deps.hilt.navigation
     implementation deps.hilt.android
     kapt deps.hilt.compiler
+
+    implementation deps.glide.core
+    kapt deps.glide.compiler
 
     implementation deps.ktlint
 

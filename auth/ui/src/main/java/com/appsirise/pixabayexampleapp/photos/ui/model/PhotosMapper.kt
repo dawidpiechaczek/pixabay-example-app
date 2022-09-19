@@ -1,13 +1,12 @@
-package com.appsirise.pixabayexampleapp.photos.ui
+package com.appsirise.pixabayexampleapp.photos.ui.model
 
 import com.appsirise.pixabayexampleapp.photos.data.model.SearchedPhotoDto
-import com.appsirise.pixabayexampleapp.photos.ui.model.SearchedPhoto
 
 fun SearchedPhotoDto.toSearchedPhoto(): SearchedPhoto =
     SearchedPhoto(
         id = id,
         previewUrl = previewUrl,
-        pageURL = pageURL,
+        largeImageUrl = largeImageUrl,
         userName = userName,
         tags = tags,
         likes = likes,

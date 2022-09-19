@@ -2,7 +2,7 @@ package com.appsirise.pixabayexampleapp.photos.ui.usecase
 
 import com.appsirise.pixabayexampleapp.photos.ui.model.SearchedPhoto
 import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchPhotosSource
-import com.appsirise.pixabayexampleapp.photos.ui.toSearchedPhoto
+import com.appsirise.pixabayexampleapp.photos.ui.model.toSearchedPhoto
 import io.reactivex.Single
 import javax.inject.Inject
 

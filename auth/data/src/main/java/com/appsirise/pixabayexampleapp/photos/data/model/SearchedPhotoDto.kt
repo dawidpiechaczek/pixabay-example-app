@@ -7,8 +7,8 @@ data class SearchedPhotoDto(
     val id: Long,
     @SerializedName("previewURL")
     val previewUrl: String?,
-    @SerializedName("pageURL")
-    val pageURL: String?,
+    @SerializedName("largeImageURL")
+    val largeImageUrl: String?,
     @SerializedName("user")
     val userName: String?,
     @SerializedName("tags")

@@ -40,7 +40,7 @@ class PhotosListFragment : Fragment(), PhotosListView.Listener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        photosListView = viewFactory.photosListView(container)
+        photosListView = viewFactory.newSignUpView(container)
         return photosListView?.rootView
     }
 
