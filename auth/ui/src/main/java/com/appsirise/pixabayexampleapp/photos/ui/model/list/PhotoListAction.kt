@@ -1,4 +1,4 @@
-package com.appsirise.pixabayexampleapp.photos.ui.model
+package com.appsirise.pixabayexampleapp.photos.ui.model.list
 
 sealed class PhotoListAction {
     data class SearchPhotos(val searchQuery: String) : PhotoListAction()

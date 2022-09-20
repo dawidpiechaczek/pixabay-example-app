@@ -2,9 +2,9 @@ package com.appsirise.pixabayexampleapp.photos.ui.view.list
 
 import androidx.lifecycle.ViewModel
 import com.appsirise.core.ui.utils.ErrorMessageHelper
-import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListAction
-import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListEffect
-import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListState
+import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListAction
+import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListEffect
+import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListState
 import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchedPhotosSource
 import com.appsirise.pixabayexampleapp.photos.ui.usecase.SearchPhotosUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

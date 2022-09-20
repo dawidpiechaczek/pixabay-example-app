@@ -1,4 +1,4 @@
-package com.appsirise.pixabayexampleapp.photos.ui.model
+package com.appsirise.pixabayexampleapp.photos.ui.model.list
 
 import androidx.annotation.StringRes
 

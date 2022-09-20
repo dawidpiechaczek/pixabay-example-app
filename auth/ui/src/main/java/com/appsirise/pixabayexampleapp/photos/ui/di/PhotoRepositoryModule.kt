@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class AuthRepositoryModule {
+internal abstract class PhotoRepositoryModule {
 
     @Binds
     abstract fun bindSearchPhotosService(searchPhotosServiceImpl: SearchPhotosServiceImpl): SearchPhotosService

@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListState
+import com.appsirise.core.ui.extensions.subscribeTo
+import com.appsirise.pixabayexampleapp.photos.ui.model.details.PhotoDetailsAction
+import com.appsirise.pixabayexampleapp.photos.ui.model.details.PhotoDetailsEffect
 import com.appsirise.pixabayexampleapp.photos.ui.view.PhotosViewFactory
-import com.appsirise.pixabayexampleapp.photos.ui.view.list.PhotosListViewModelImpl
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,7 +29,7 @@ internal class PhotosDetailsFragment : Fragment(), PhotosDetailsView.Listener {
     private val args: PhotosDetailsFragmentArgs by navArgs()
     private var photosListView: PhotosDetailsView? = null
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private val photosListViewModel: PhotosListViewModelImpl by activityViewModels()
+    private val photosListViewModel: PhotosDetailsViewModelImpl by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,14 +46,16 @@ internal class PhotosDetailsFragment : Fragment(), PhotosDetailsView.Listener {
         getPhotoDetails()
     }
 
-    private fun executeState(state: PhotoListState) {
-        photosListView?.setPhotoDetails(state.searchedPhotos.firstOrNull { it.id == args.photoId })
+    private fun executeEffect(effect: PhotoDetailsEffect) {
+        when (effect) {
+            is PhotoDetailsEffect.PhotoDetails -> photosListView?.setPhotoDetails(effect.photoDetails)
+        }
     }
 
     private fun getPhotoDetails() {
         val photoId: Long = args.photoId
-      /*  photosListViewModel.onAction(PhotoListAction.GetPhotoDetails(photoId))
-            .subscribeTo(compositeDisposable)*/
+        photosListViewModel.onAction(PhotoDetailsAction.GetPhotoDetails(photoId))
+            .subscribeTo(compositeDisposable)
     }
 
     override fun onStart() {
@@ -76,10 +79,10 @@ internal class PhotosDetailsFragment : Fragment(), PhotosDetailsView.Listener {
     }
 
     private fun initState() {
-        photosListViewModel.observeState()
+        photosListViewModel.observeEffect()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onNext = this::executeState, onError = Timber::e)
+            .subscribeBy(onNext = this::executeEffect, onError = Timber::e)
             .addTo(compositeDisposable)
     }
 }

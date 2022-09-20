@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.appsirise.core.ui.extensions.subscribeTo
-import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListAction
-import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListEffect
-import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListState
+import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListAction
+import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListEffect
+import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListState
 import com.appsirise.pixabayexampleapp.photos.ui.view.PhotosViewFactory
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers

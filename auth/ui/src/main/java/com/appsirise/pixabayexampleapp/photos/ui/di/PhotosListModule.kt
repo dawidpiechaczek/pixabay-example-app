@@ -1,25 +1,17 @@
 package com.appsirise.pixabayexampleapp.photos.ui.di
 
-import com.appsirise.pixabayexampleapp.photos.data.network.SearchPhotosApi
-import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListEffect
-import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListState
+import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListEffect
+import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListState
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
-import retrofit2.Retrofit
-import retrofit2.create
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal class AuthModule {
-
-/* API */
-
-    @Provides
-    fun provideSearchPhotosApi(retrofit: Retrofit): SearchPhotosApi = retrofit.create()
+internal class PhotosListModule {
 
     @Provides
     fun provideSearchPhotosEffect(): PublishSubject<PhotoListEffect> = PublishSubject.create()

@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">Pixabay Example App</string>
 
+    <string name="placeholder_no_pictures">No picture was found</string>
+    <string name="hint_search">Search</string>
+
     <string name="error_no_internet_connection">No internet connection</string>
     <string name="error_timeout">Timeout error occurred</string>
     <string name="error_missing_data">Data has unexpected format</string>

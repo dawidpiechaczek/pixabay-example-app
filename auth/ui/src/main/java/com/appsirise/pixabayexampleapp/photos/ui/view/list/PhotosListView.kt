@@ -3,6 +3,7 @@ package com.appsirise.pixabayexampleapp.photos.ui.view.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.appsirise.core.ui.base.BaseView
 import com.appsirise.core.ui.extensions.disposeWith
@@ -62,6 +63,8 @@ internal class PhotosListView(layoutInflater: LayoutInflater, parent: ViewGroup?
             submitList(photos)
             notifyDataSetChanged()
         }
+
+        binding.noPictureMessage.isVisible = photos.isEmpty()
     }
 
     fun showError(errorMessage: Int) {
