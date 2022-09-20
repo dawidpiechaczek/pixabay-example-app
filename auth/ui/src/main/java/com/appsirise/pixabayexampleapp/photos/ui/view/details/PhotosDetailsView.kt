@@ -7,11 +7,9 @@ import com.appsirise.pixabayexampleapp.photos.ui.R
 import com.appsirise.pixabayexampleapp.photos.ui.databinding.FragmentPhotosDetailsBinding
 import com.appsirise.pixabayexampleapp.photos.ui.model.SearchedPhoto
 
-class PhotosDetailsView(layoutInflater: LayoutInflater, parent: ViewGroup?) :
+internal class PhotosDetailsView(layoutInflater: LayoutInflater, parent: ViewGroup?) :
     BaseView<PhotosDetailsView.Listener, FragmentPhotosDetailsBinding>(
-        layoutInflater,
-        parent,
-        R.layout.fragment_photos_details
+        layoutInflater, parent, R.layout.fragment_photos_details
     ) {
 
     fun setPhotoDetails(searchPhoto: SearchedPhoto?) {
@@ -24,6 +22,5 @@ class PhotosDetailsView(layoutInflater: LayoutInflater, parent: ViewGroup?) :
         fun onClickNavigateBack()
     }
 
-    init {
-    }
+    init { }
 }

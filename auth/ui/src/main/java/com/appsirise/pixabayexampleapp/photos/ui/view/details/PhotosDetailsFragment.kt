@@ -21,7 +21,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PhotosDetailsFragment : Fragment(), PhotosDetailsView.Listener {
+internal class PhotosDetailsFragment : Fragment(), PhotosDetailsView.Listener {
 
     @Inject
     lateinit var viewFactory: PhotosViewFactory

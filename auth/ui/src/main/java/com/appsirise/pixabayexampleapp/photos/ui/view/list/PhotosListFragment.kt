@@ -22,7 +22,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PhotosListFragment : Fragment(), PhotosListView.Listener {
+internal class PhotosListFragment : Fragment(), PhotosListView.Listener {
 
     @Inject
     lateinit var viewFactory: PhotosViewFactory
@@ -66,9 +66,11 @@ class PhotosListFragment : Fragment(), PhotosListView.Listener {
     override fun onStart() {
         super.onStart()
         photosListView?.registerListener(this)
+        photosListView?.registerTextListeners()
     }
 
     override fun onStop() {
+        photosListView?.unregisterTextListeners()
         photosListView?.unregisterListener(this)
         super.onStop()
     }
@@ -83,6 +85,11 @@ class PhotosListFragment : Fragment(), PhotosListView.Listener {
         val action =
             PhotosListFragmentDirections.actionSignUpFragmentToPhotosDetailsFragment(photoId)
         findNavController().navigate(action)
+    }
+
+    override fun onSearchQueryChanged(query: String) {
+        photosListViewModel.onAction(PhotoListAction.SearchPhotos(query))
+            .subscribeTo(compositeDisposable)
     }
 
     private fun initEffect() {

@@ -4,5 +4,5 @@ import com.appsirise.pixabayexampleapp.photos.data.model.SearchedPhotosResponse
 import io.reactivex.Single
 
 interface SearchPhotosService {
-    fun searchPhotos(): Single<SearchedPhotosResponse>
+    fun searchPhotos(query: String): Single<SearchedPhotosResponse>
 }

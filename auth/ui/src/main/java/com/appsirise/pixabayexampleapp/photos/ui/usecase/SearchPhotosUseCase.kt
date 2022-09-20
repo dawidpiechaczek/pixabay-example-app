@@ -11,8 +11,8 @@ internal class SearchPhotosUseCase @Inject constructor(
     private val searchPhotosSource: SearchedPhotosSource
 ) {
 
-    fun searchPhotos(): Completable =
-        searchPhotosService.searchPhotos()
+    fun searchPhotos(query: String): Completable =
+        searchPhotosService.searchPhotos(query)
             .map { response -> response.searchedPhotos.map { it.toSearchedPhoto() } }
             .flatMapCompletable { searchPhotosSource.insert(it) }
 }

@@ -15,6 +15,8 @@ import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
 import javax.inject.Inject
 
+private const val DEFAULT_SEARCH_QUERY_VALUE = "fruits"
+
 abstract class PhotosListViewModel : ViewModel() {
     abstract fun observeEffect(): Observable<PhotoListEffect>
     abstract fun observeState(): Observable<PhotoListState>
@@ -30,7 +32,7 @@ internal class PhotosListViewModelImpl @Inject constructor(
 ) : PhotosListViewModel() {
 
     override fun onAction(action: PhotoListAction): Completable = when (action) {
-        is PhotoListAction.SearchPhotos -> searchPhotosCompletable()
+        is PhotoListAction.SearchPhotos -> searchPhotosCompletable(action.searchQuery)
         is PhotoListAction.GetCachedPhotos -> getCachedPhotos(action.isInitial)
     }
 
@@ -45,8 +47,8 @@ internal class PhotosListViewModelImpl @Inject constructor(
                 }
             }
 
-    private fun searchPhotosCompletable(): Completable =
-        searchPhotosUseCase.searchPhotos()
+    private fun searchPhotosCompletable(query: String = DEFAULT_SEARCH_QUERY_VALUE): Completable =
+        searchPhotosUseCase.searchPhotos(query)
             .doOnError {
                 effect.onNext(PhotoListEffect.Error(ErrorMessageHelper(it).getMessageStringId()))
                 Timber.e(it)
