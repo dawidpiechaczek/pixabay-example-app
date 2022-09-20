@@ -26,6 +26,15 @@ class DashboardFragment : Fragment(), DashboardView.Listener {
         return dashboardView?.rootView
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        navigateToPhotosList()
+    }
+
+    private fun navigateToPhotosList() {
+        val action = DashboardFragmentDirections.actionDashboardFragmentToNavGraphAuth()
+        findNavController().navigate(action)
+    }
+
     override fun onStart() {
         super.onStart()
         dashboardView?.registerListener(this)
@@ -39,15 +48,5 @@ class DashboardFragment : Fragment(), DashboardView.Listener {
     override fun onDestroyView() {
         dashboardView = null
         super.onDestroyView()
-    }
-
-    override fun onClickNavigateToAuth() {
-        val action = DashboardFragmentDirections.actionDashboardFragmentToNavGraphAuth()
-        findNavController().navigate(action)
-    }
-
-    override fun onClickNavigateToDesign() {
-        val action = DashboardFragmentDirections.actionDashboardFragmentToDesignFragment()
-        findNavController().navigate(action)
     }
 }

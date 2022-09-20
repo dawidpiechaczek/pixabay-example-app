@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import com.appsirise.core.ui.extensions.subscribeTo
-import com.appsirise.pixabayexampleapp.photos.ui.R
 import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListAction
 import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListEffect
 import com.appsirise.pixabayexampleapp.photos.ui.model.PhotoListState
@@ -23,9 +20,6 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
-
-const val DASHBOARD_FRAGMENT_NAVIGATION_DEEPLINK =
-    "android-app://com.appsirise.pixabayexampleapp/fragment_dashboard"
 
 @AndroidEntryPoint
 class PhotosListFragment : Fragment(), PhotosListView.Listener {
@@ -49,18 +43,18 @@ class PhotosListFragment : Fragment(), PhotosListView.Listener {
         super.onViewCreated(view, savedInstanceState)
         initState()
         initEffect()
-        initPhotosSearch()
+        if (savedInstanceState == null) {
+            initPhotosSearch()
+        }
     }
 
     private fun executeState(state: PhotoListState) {
         photosListView?.bindPhotos(state.searchedPhotos)
-        photosListView?.scrollListToPosition(state.lastRecyclerPosition)
     }
 
     private fun executeEffects(effect: PhotoListEffect) {
         when (effect) {
             is PhotoListEffect.Error -> photosListView?.showError(effect.messageResource)
-            is PhotoListEffect.NavigateToPhotoDetails -> navigateToPhotoDetails(effect.photoId)
         }
     }
 
@@ -85,22 +79,7 @@ class PhotosListFragment : Fragment(), PhotosListView.Listener {
         super.onDestroyView()
     }
 
-    override fun onClickNavigateToDashboard() {
-        val request = NavDeepLinkRequest.Builder
-            .fromUri(DASHBOARD_FRAGMENT_NAVIGATION_DEEPLINK.toUri())
-            .build()
-        findNavController().run {
-            popBackStack(R.id.signUpFragment, true)
-            navigate(request)
-        }
-    }
-
-    override fun onClickSaveSelectedPositionAndGetPhotoDetails(photoId: Long, selectedPosition: Int) {
-        photosListViewModel.onAction(PhotoListAction.GetPhotoDetails(photoId, selectedPosition))
-            .subscribeTo(compositeDisposable)
-    }
-
-    private fun navigateToPhotoDetails(photoId: Long) {
+    override fun onClickNavigateToPhotoDetails(photoId: Long) {
         val action =
             PhotosListFragmentDirections.actionSignUpFragmentToPhotosDetailsFragment(photoId)
         findNavController().navigate(action)

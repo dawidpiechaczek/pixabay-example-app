@@ -32,12 +32,6 @@ internal class PhotosListViewModelImpl @Inject constructor(
     override fun onAction(action: PhotoListAction): Completable = when (action) {
         is PhotoListAction.SearchPhotos -> searchPhotosCompletable()
         is PhotoListAction.GetCachedPhotos -> getCachedPhotos(action.isInitial)
-        is PhotoListAction.GetPhotoDetails -> getSelectedPhotoDetails(action)
-    }
-
-    private fun getSelectedPhotoDetails(action: PhotoListAction.GetPhotoDetails): Completable = Completable.fromAction {
-        state.onNext(state.value.copy(lastRecyclerPosition = action.lastRecyclerPosition))
-        effect.onNext(PhotoListEffect.NavigateToPhotoDetails(action.photoId))
     }
 
     private fun getCachedPhotos(isInitial: Boolean = false): Completable =

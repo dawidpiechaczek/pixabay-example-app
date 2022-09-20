@@ -3,7 +3,7 @@ package com.appsirise.pixabayexampleapp.photos.ui.view.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.appsirise.core.ui.base.BaseView
 import com.appsirise.pixabayexampleapp.photos.ui.R
 import com.appsirise.pixabayexampleapp.photos.ui.adapter.SearchedPhotosAdapter
@@ -18,26 +18,21 @@ class PhotosListView(layoutInflater: LayoutInflater, parent: ViewGroup?) :
     ) {
 
     interface Listener {
-        fun onClickNavigateToDashboard()
-        fun onClickSaveSelectedPositionAndGetPhotoDetails(photoId: Long, selectedPosition: Int)
+        fun onClickNavigateToPhotoDetails(photoId: Long)
     }
 
     var photosAdapter: SearchedPhotosAdapter =
         SearchedPhotosAdapter { navigateToPhotoDetails(it.getUniqueId()) }
 
     init {
-        binding.photosAdapter = photosAdapter
-        binding.navigateToDashboard.setOnClickListener { listeners.forEach { listener -> listener.onClickNavigateToDashboard() } }
+        photosAdapter.apply {
+            stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }.also { binding.photosAdapter = it }
     }
 
     private fun navigateToPhotoDetails(photoId: Long) {
-        val recyclerPosition =
-            (binding.listItems.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
         listeners.forEach { listener ->
-            listener.onClickSaveSelectedPositionAndGetPhotoDetails(
-                photoId,
-                recyclerPosition
-            )
+            listener.onClickNavigateToPhotoDetails(photoId)
         }
     }
 
@@ -47,9 +42,5 @@ class PhotosListView(layoutInflater: LayoutInflater, parent: ViewGroup?) :
 
     fun showError(errorMessage: Int) {
         Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-    }
-
-    fun scrollListToPosition(selectedPosition: Int) {
-        binding.listItems.scrollToPosition(selectedPosition)
     }
 }

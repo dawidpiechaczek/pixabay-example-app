@@ -13,15 +13,5 @@ class DashboardView(layoutInflater: LayoutInflater, parent: ViewGroup?) :
         R.layout.fragment_dashboard
     ) {
 
-    interface Listener {
-        fun onClickNavigateToAuth()
-        fun onClickNavigateToDesign()
-    }
-
-    init {
-        with(binding) {
-            navigateToAuth.setOnClickListener { listeners.forEach { listener -> listener.onClickNavigateToAuth() } }
-            navigateToDesign.setOnClickListener { listeners.forEach { listener -> listener.onClickNavigateToDesign() } }
-        }
-    }
+    interface Listener
 }

@@ -33,7 +33,7 @@ class MainView(
         fragmentManager.findNavControllerCompat(R.id.nav_controller_main)
             .addOnDestinationChangedListener { _, destination, _ ->
                 val isNavigationBarVisible = when (destination.id) {
-                    R.id.dashboardFragment, R.id.designFragment -> true
+                    R.id.dashboardFragment -> true
                     R.id.signUpFragment -> false
                     else -> false
                 }
