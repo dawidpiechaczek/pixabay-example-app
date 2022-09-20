@@ -14,9 +14,7 @@ class MainView(
     layoutInflater: LayoutInflater,
     parent: ViewGroup?
 ) : BaseView<MainView.Listener, ActivityMainBinding>(
-    layoutInflater,
-    parent,
-    R.layout.activity_main
+    layoutInflater, parent, R.layout.activity_main
 ) {
 
     interface Listener {
@@ -34,7 +32,7 @@ class MainView(
             .addOnDestinationChangedListener { _, destination, _ ->
                 val isNavigationBarVisible = when (destination.id) {
                     R.id.dashboardFragment -> true
-                    R.id.signUpFragment -> false
+                    R.id.photosListFragment -> false
                     else -> false
                 }
                 changeBottomNavigationBarVisibility(isNavigationBarVisible)
