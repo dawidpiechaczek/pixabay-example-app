@@ -1,4 +1,4 @@
-package com.appsirise.pixabayexampleapp.photos.ui.repository
+package com.appsirise.pixabayexampleapp.photos.ui.service
 
 import com.appsirise.pixabayexampleapp.photos.data.model.SearchedPhotosResponse
 import io.reactivex.Single

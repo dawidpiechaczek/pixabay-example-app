@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.appsirise.core.ui.extensions.showDialog
 import com.appsirise.core.ui.extensions.subscribeTo
+import com.appsirise.pixabayexampleapp.photos.ui.R
 import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListAction
 import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListEffect
 import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListState
@@ -81,7 +83,19 @@ internal class PhotosListFragment : Fragment(), PhotosListView.Listener {
         super.onDestroyView()
     }
 
-    override fun onClickNavigateToPhotoDetails(photoId: Long) {
+    override fun onClickShowPhotoDetailsDialog(photoId: Long) {
+        requireContext().showDialog(
+            title = R.string.dialog_navigate_details_title,
+            message = R.string.dialog_navigate_details_message,
+            negativeButtonText = R.string.button_no,
+            positiveButtonText = R.string.button_yes,
+            positiveButtonAction = { navigateToPhotoDetails(photoId) },
+            negativeButtonAction = { dialog -> dialog.dismiss() },
+            isCancelable = false
+        )
+    }
+
+    private fun navigateToPhotoDetails(photoId: Long) {
         val action =
             PhotosListFragmentDirections.actionSignUpFragmentToPhotosDetailsFragment(photoId)
         findNavController().navigate(action)

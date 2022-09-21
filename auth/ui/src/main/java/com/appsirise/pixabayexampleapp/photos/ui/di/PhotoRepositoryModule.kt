@@ -1,9 +1,9 @@
 package com.appsirise.pixabayexampleapp.photos.ui.di
 
-import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchPhotosService
-import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchPhotosServiceImpl
 import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchedPhotosRepository
 import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchedPhotosSource
+import com.appsirise.pixabayexampleapp.photos.ui.service.SearchPhotosService
+import com.appsirise.pixabayexampleapp.photos.ui.service.SearchPhotosServiceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

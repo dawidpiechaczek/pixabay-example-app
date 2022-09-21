@@ -25,7 +25,7 @@ internal class PhotosListView(layoutInflater: LayoutInflater, parent: ViewGroup?
     ) {
 
     interface Listener {
-        fun onClickNavigateToPhotoDetails(photoId: Long)
+        fun onClickShowPhotoDetailsDialog(photoId: Long)
         fun onSearchQueryChanged(query: String)
     }
 
@@ -51,7 +51,7 @@ internal class PhotosListView(layoutInflater: LayoutInflater, parent: ViewGroup?
     }
 
     private fun navigateToPhotoDetails(photoId: Long) {
-        listeners.forEach { listener -> listener.onClickNavigateToPhotoDetails(photoId) }
+        listeners.forEach { listener -> listener.onClickShowPhotoDetailsDialog(photoId) }
     }
 
     private fun onTextChangeListener(query: String) {
