@@ -3,7 +3,7 @@ apply from: "$rootDir/common-ui.gradle"
 
 dependencies {
     implementation project(':core:ui')
-    api project(':auth:data')
+    api project(':photos:data')
 
     testImplementation(project(':shared-test'))
 }

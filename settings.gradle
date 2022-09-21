@@ -8,8 +8,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Pixabay Example App"
 include ':app'
-include ':auth:data'
-include ':auth:ui'
+include ':photos:data'
+include ':photos:ui'
 include ':core:ui'
 include ':core:data'
 include ':shared-test'
