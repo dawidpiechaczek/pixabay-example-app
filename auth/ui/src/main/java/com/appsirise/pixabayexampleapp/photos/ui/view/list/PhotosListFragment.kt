@@ -90,7 +90,6 @@ internal class PhotosListFragment : Fragment(), PhotosListView.Listener {
             negativeButtonText = R.string.button_no,
             positiveButtonText = R.string.button_yes,
             positiveButtonAction = { navigateToPhotoDetails(photoId) },
-            negativeButtonAction = { dialog -> dialog.dismiss() },
             isCancelable = false
         )
     }
