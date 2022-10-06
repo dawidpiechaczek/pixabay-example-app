@@ -42,6 +42,7 @@ dependencies {
     implementation deps.android_ui.recycler_view
     implementation deps.android_ui.splash_screen
     implementation deps.android_ui.view_model
+    implementation deps.android_ui.live_data
 
     implementation deps.play_auth
 

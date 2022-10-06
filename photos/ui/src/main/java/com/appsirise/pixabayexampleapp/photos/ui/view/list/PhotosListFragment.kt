@@ -8,19 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.appsirise.core.ui.extensions.showDialog
-import com.appsirise.core.ui.extensions.subscribeTo
+import com.appsirise.core.ui.utils.ViewState
 import com.appsirise.pixabayexampleapp.photos.ui.R
-import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListAction
-import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListEffect
-import com.appsirise.pixabayexampleapp.photos.ui.model.list.PhotoListState
 import com.appsirise.pixabayexampleapp.photos.ui.view.PhotosViewFactory
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,7 +22,7 @@ internal class PhotosListFragment : Fragment(), PhotosListView.Listener {
     lateinit var viewFactory: PhotosViewFactory
     private var photosListView: PhotosListView? = null
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private val photosListViewModel: PhotosListViewModelImpl by activityViewModels()
+    private val photosListViewModel: PhotosListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,26 +35,23 @@ internal class PhotosListFragment : Fragment(), PhotosListView.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initState()
-        initEffect()
+        initObservers()
         if (savedInstanceState == null) {
             initPhotosSearch()
         }
     }
 
-    private fun executeState(state: PhotoListState) {
-        photosListView?.bindPhotos(state.searchedPhotos)
-    }
-
-    private fun executeEffects(effect: PhotoListEffect) {
-        when (effect) {
-            is PhotoListEffect.Error -> photosListView?.showError(effect.messageResource)
+    private fun initObservers() {
+        photosListViewModel.searchedPhotosLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is ViewState.Error -> photosListView?.showError(it.errorMessage)
+                is ViewState.Success -> photosListView?.bindPhotos(it.data)
+            }
         }
     }
 
     private fun initPhotosSearch() {
-        photosListViewModel.onAction(PhotoListAction.GetCachedPhotos(isInitial = true))
-            .subscribeTo(compositeDisposable)
+        photosListViewModel.getCachedPhotos(true)
     }
 
     override fun onStart() {
@@ -101,23 +90,6 @@ internal class PhotosListFragment : Fragment(), PhotosListView.Listener {
     }
 
     override fun onSearchQueryChanged(query: String) {
-        photosListViewModel.onAction(PhotoListAction.SearchPhotos(query))
-            .subscribeTo(compositeDisposable)
-    }
-
-    private fun initEffect() {
-        photosListViewModel.observeEffect()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onNext = this::executeEffects, onError = Timber::e)
-            .addTo(compositeDisposable)
-    }
-
-    private fun initState() {
-        photosListViewModel.observeState()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onNext = this::executeState, onError = Timber::e)
-            .addTo(compositeDisposable)
+        photosListViewModel.searchPhotos(query)
     }
 }

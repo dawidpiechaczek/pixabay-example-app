@@ -1,36 +1,34 @@
 package com.appsirise.pixabayexampleapp.photos.ui.view.details
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.appsirise.pixabayexampleapp.photos.ui.model.details.PhotoDetailsAction
-import com.appsirise.pixabayexampleapp.photos.ui.model.details.PhotoDetailsEffect
+import androidx.lifecycle.viewModelScope
+import com.appsirise.core.ui.utils.ErrorMessageHelper
+import com.appsirise.core.ui.utils.ViewState
+import com.appsirise.pixabayexampleapp.photos.ui.model.SearchedPhoto
 import com.appsirise.pixabayexampleapp.photos.ui.repository.SearchedPhotosSource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-abstract class PhotosDetailsViewModel : ViewModel() {
-    abstract fun observeEffect(): Observable<PhotoDetailsEffect>
-    abstract fun onAction(action: PhotoDetailsAction): Completable
-}
-
 @HiltViewModel
-internal class PhotosDetailsViewModelImpl @Inject constructor(
-    private val searchedPhotosSource: SearchedPhotosSource,
-    private val effect: PublishSubject<PhotoDetailsEffect>
-) : PhotosDetailsViewModel() {
+internal class PhotoDetailsViewModel @Inject constructor(
+    private val searchedPhotosSource: SearchedPhotosSource
+) : ViewModel() {
 
-    override fun onAction(action: PhotoDetailsAction): Completable = when (action) {
-        is PhotoDetailsAction.GetPhotoDetails -> getPhotoDetails(action.photoId)
-    }
+    private val _photoDetailsLiveData = MutableLiveData<ViewState<SearchedPhoto>>()
+    val photoDetailsLiveData: LiveData<ViewState<SearchedPhoto>> = _photoDetailsLiveData
 
-    private fun getPhotoDetails(photoId: Long): Completable =
-        searchedPhotosSource.getById(photoId)
-            .flatMapCompletable {
-                effect.onNext(PhotoDetailsEffect.PhotoDetails(it))
-                Completable.complete()
+    fun getPhotoDetails(photoId: Long) {
+        viewModelScope.launch {
+            try {
+                _photoDetailsLiveData.value =
+                    ViewState.Success(searchedPhotosSource.getById(photoId))
+            } catch (error: Exception) {
+                _photoDetailsLiveData.value =
+                    ViewState.Error(ErrorMessageHelper(error).getMessageStringId())
             }
-
-    override fun observeEffect(): Observable<PhotoDetailsEffect> = effect.hide()
+        }
+    }
 }

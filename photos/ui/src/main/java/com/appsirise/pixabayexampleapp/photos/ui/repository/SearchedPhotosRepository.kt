@@ -1,22 +1,25 @@
 package com.appsirise.pixabayexampleapp.photos.ui.repository
 
+import com.appsirise.core.ui.exceptions.PhotoDetailsNotFoundException
 import com.appsirise.pixabayexampleapp.photos.ui.model.SearchedPhoto
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.firstOrNull
 import javax.inject.Inject
 
 class SearchedPhotosRepository @Inject constructor() : SearchedPhotosSource {
 
-    private val searchedPhotos: MutableList<SearchedPhoto> = mutableListOf()
+    private val _searchedPhotos: MutableSharedFlow<List<SearchedPhoto>> =
+        MutableSharedFlow(replay = 1)
+    private val searchedPhotos: SharedFlow<List<SearchedPhoto>> = _searchedPhotos
 
-    override fun insert(newList: List<SearchedPhoto>): Completable = Completable.fromAction {
-        searchedPhotos.clear()
-        searchedPhotos.addAll(newList)
+    override suspend fun get(): SharedFlow<List<SearchedPhoto>> = searchedPhotos
+
+    override suspend fun insert(newList: List<SearchedPhoto>) {
+        _searchedPhotos.emit(newList)
     }
 
-    override fun get(): Flowable<List<SearchedPhoto>> = Flowable.just(searchedPhotos)
-
-    override fun getById(photoId: Long): Single<SearchedPhoto> =
-        Single.just(searchedPhotos.first { photoId == it.id })
+    override suspend fun getById(photoId: Long): SearchedPhoto =
+        searchedPhotos.firstOrNull()?.first { photoId == it.id }
+            ?: throw PhotoDetailsNotFoundException()
 }

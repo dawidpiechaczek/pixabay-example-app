@@ -23,4 +23,6 @@
     <string name="error_http_404">Error not found occurred</string>
     <string name="error_http_401">Unauthorised action</string>
     <string name="error_http_unknown">Unknown http error, check if you add your api key</string>
+
+    <string name="error_photo_details">No photo details found</string>
 </resources>

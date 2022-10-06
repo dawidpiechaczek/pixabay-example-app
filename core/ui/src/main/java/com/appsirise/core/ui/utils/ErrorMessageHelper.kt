@@ -2,6 +2,7 @@ package com.appsirise.core.ui.utils
 
 import androidx.annotation.StringRes
 import com.appsirise.core.ui.R
+import com.appsirise.core.ui.exceptions.PhotoDetailsNotFoundException
 import com.google.gson.JsonParseException
 import retrofit2.HttpException
 import java.net.ConnectException
@@ -72,6 +73,7 @@ class ErrorMessageHelper(private val throwable: Throwable) {
             is SocketTimeoutException -> R.string.error_timeout
             is KotlinNullPointerException, is JsonParseException -> R.string.error_missing_data
             is SSLPeerUnverifiedException -> R.string.error_security
+            is PhotoDetailsNotFoundException -> R.string.error_photo_details
             else -> R.string.error_unknown
         }
     }

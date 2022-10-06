@@ -1,12 +1,10 @@
 package com.appsirise.pixabayexampleapp.photos.ui.repository
 
 import com.appsirise.pixabayexampleapp.photos.ui.model.SearchedPhoto
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.SharedFlow
 
 internal interface SearchedPhotosSource {
-    fun insert(newList: List<SearchedPhoto>): Completable
-    fun get(): Flowable<List<SearchedPhoto>>
-    fun getById(photoId: Long): Single<SearchedPhoto>
+    suspend fun insert(newList: List<SearchedPhoto>)
+    suspend fun get(): SharedFlow<List<SearchedPhoto>>
+    suspend fun getById(photoId: Long): SearchedPhoto
 }

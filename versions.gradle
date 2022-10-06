@@ -51,6 +51,7 @@ android_ui.material = "com.google.android.material:material:$versions.material"
 android_ui.recycler_view = "androidx.recyclerview:recyclerview:$versions.recycler_view"
 android_ui.splash_screen = "androidx.core:core-splashscreen:$versions.splash_screen"
 android_ui.view_model ="androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+android_ui.live_data ="androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
 deps.android_ui = android_ui
 
 def coroutines = [:]
